@@ -47,6 +47,8 @@ kotlin {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.calf.ui)
+            implementation(compose.materialIconsExtended)
+            implementation(libs.image.loader)
 
             // navigator
             implementation(libs.voyager.navigator)
