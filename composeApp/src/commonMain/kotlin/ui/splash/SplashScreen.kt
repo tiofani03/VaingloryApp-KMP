@@ -27,7 +27,7 @@ object SplashScreen : Screen {
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         SplashScreenContent {
-            navigator.replace(HomeScreen)
+            navigator.replace(HomeScreen())
         }
     }
 }

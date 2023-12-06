@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    kotlin("plugin.serialization").version("1.9.10")
 }
 
 kotlin {
@@ -54,13 +55,24 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.tab.navigator)
             implementation(libs.voyager.transitions)
+            implementation(libs.voyager.koin)
 
             //ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.kotlinx.serialization.json)
+//            implementation(libs.kotlinx.serialization.json)
+
+            //coroutine x paging
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.paging.compose.common)
+
+            //koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.test)
+            implementation("io.insert-koin:koin-compose:1.1.0")
+            api(libs.kmm.viewmodel.core)
         }
     }
 }

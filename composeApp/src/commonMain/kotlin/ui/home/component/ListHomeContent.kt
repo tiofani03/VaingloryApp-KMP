@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.paging.LoadState
+import app.cash.paging.compose.LazyPagingItems
 import data.model.Hero
 import theme.EXTRA_SMALL_PADDING
 import theme.SMALL_PADDING
@@ -18,7 +20,7 @@ import theme.SMALL_PADDING
 @Composable
 fun ListContent(
     modifier: Modifier = Modifier,
-    heroes: List<Hero>,
+    heroes: LazyPagingItems<Hero>,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier,
@@ -27,19 +29,56 @@ fun ListContent(
         horizontalArrangement = Arrangement.spacedBy(EXTRA_SMALL_PADDING),
         contentPadding = PaddingValues(SMALL_PADDING),
         content = {
-            items(heroes.size) { index ->
+            items(heroes.itemCount) { index ->
                 val hero = heroes[index]
-                ItemHero(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .animateItemPlacement(tween(durationMillis = 300)),
-                    hero = hero,
-                    onClick = { heroId ->
-
-                    })
+                hero?.let {
+                    ItemHero(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .animateItemPlacement(tween(durationMillis = 300)),
+                        hero = hero,
+                        onClick = { heroId ->
+//                            navController.navigate(Screen.Detail.passHeroId(heroId = heroId))
+                        })
+                }
             }
         },
     )
+}
+
+@Composable
+fun handlePagingResult(
+    heroes: LazyPagingItems<Hero>,
+    onRefresh: () -> Unit? = {},
+): Boolean {
+    heroes.apply {
+        val error = when {
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+//            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            else -> null
+        }
+
+        return when {
+            loadState.refresh is LoadState.Loading -> {
+                false
+            }
+
+            loadState.prepend is LoadState.Loading -> {
+                false
+            }
+
+            heroes.itemCount == 0 -> {
+                false
+            }
+
+            error != null -> {
+                false
+            }
+
+            else -> true
+        }
+    }
 }
 
