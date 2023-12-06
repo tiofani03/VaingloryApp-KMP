@@ -72,6 +72,7 @@ fun ItemHero(
                 Text(
                     modifier = Modifier,
                     text = "${hero.role}, ${hero.position}".uppercase(),
+                    color = Color.White.copy(alpha = 0.9f),
                     fontSize = MaterialTheme.typography.labelSmall.fontSize,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

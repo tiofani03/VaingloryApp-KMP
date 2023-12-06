@@ -45,11 +45,13 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.material)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.calf.ui)
             implementation(compose.materialIconsExtended)
             implementation(libs.image.loader)
+            implementation("dev.chrisbanes.material3:material3-window-size-class-multiplatform:0.3.1")
 
             // navigator
             implementation(libs.voyager.navigator)

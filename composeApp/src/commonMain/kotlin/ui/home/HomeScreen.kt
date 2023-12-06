@@ -1,8 +1,10 @@
 package ui.home
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import app.cash.paging.compose.collectAsLazyPagingItems
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -23,9 +25,11 @@ class HomeScreen : Screen, KoinComponent {
     @Composable
     private fun HomeScreenContent() {
         val result = homeViewModel.allHeroes.collectAsLazyPagingItems()
+
         ListContent(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(bottom = 54.dp),
             heroes = result,
         )
     }

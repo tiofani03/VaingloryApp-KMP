@@ -21,13 +21,14 @@ import theme.EXTRA_LARGE_PADDING
 import theme.md_theme_dark_onPrimary
 import theme.md_theme_light_primary
 import ui.home.HomeScreen
+import ui.main.MainScreen
 
 object SplashScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         SplashScreenContent {
-            navigator.replace(HomeScreen())
+            navigator.replace(MainScreen())
         }
     }
 }
